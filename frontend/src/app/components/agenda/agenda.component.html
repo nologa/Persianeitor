@@ -1,0 +1,81 @@
+<div class="agenda">
+  <h2>📅 Agenda de Entregas</h2>
+
+  <div *ngIf="loading" class="loading">
+    Cargando agenda...
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && fechasUnicas.length === 0" class="empty">
+    <p>No hay entregas programadas. ¡Crea un pedido con fecha de entrega!</p>
+  </div>
+
+  <div *ngIf="!loading && fechasUnicas.length > 0" class="agenda-container">
+    <!-- Selector de fechas -->
+    <div class="fechas-list">
+      <h3>Fechas de Entrega</h3>
+      <div class="fechas-scroll">
+        <button
+          *ngFor="let fecha of fechasUnicas"
+          [class.activa]="fecha === fechaSeleccionada"
+          (click)="fechaSeleccionada = fecha"
+          class="fecha-btn"
+          [class.hoy]="fecha === hoy"
+        >
+          <div class="fecha-dia">
+            {{ (fecha + 'T00:00:00') | date: 'dd' }}
+          </div>
+          <div class="fecha-mes">
+            {{ (fecha + 'T00:00:00') | date: 'MMM' }}
+          </div>
+          <div class="fecha-contador">
+            {{ contarPedidosPorFecha(fecha) }}
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Detalles de la fecha seleccionada -->
+    <div class="detalles-fecha">
+      <div class="fecha-header" [ngClass]="getPrioridadClass()">
+        <h2>{{ formatearFecha(fechaSeleccionada) }}</h2>
+        <div class="info-rapida">
+          <span class="dias-restantes">
+            <span *ngIf="diasRestantes > 0">📅 En {{ diasRestantes }} días</span>
+            <span *ngIf="diasRestantes === 0">🔔 HOY</span>
+            <span *ngIf="diasRestantes < 0">🚨 Atrasado por {{ obtenerAbsoluteValue(diasRestantes) }} días</span>
+          </span>
+          <span class="total">💰 Total: ${{ totalPendiente | money }}</span>
+        </div>
+      </div>
+
+      <div *ngIf="pedidosPorFecha.length === 0" class="sin-entregas">
+        <p>Sin entregas para esta fecha</p>
+      </div>
+
+      <div *ngIf="pedidosPorFecha.length > 0" class="pedidos-agenda">
+        <div *ngFor="let pedido of pedidosPorFecha" class="pedido-card">
+          <div class="pedido-header">
+            <h4>{{ pedido.clienteNombre }}</h4>
+            <span class="status" [ngClass]="getStatusColor(pedido.estado)">
+              {{ pedido.estado }}
+            </span>
+          </div>
+          <div class="pedido-body">
+            <p class="descripcion">{{ pedido.descripcion }}</p>
+            <div class="detalles">
+              <span class="cantidad">📦 {{ pedido.cantidad }} unidad(es)</span>
+              <span class="precio">💵 {{ pedido.precio | money }}€</span>
+            </div>
+          </div>
+          <div class="pedido-actions">
+            <button class="btn btn-ver" (click)="verPedido(pedido.id)">Ver</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

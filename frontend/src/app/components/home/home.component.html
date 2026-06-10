@@ -1,0 +1,146 @@
+<div class="home-calendar">
+  <div *ngIf="loading" class="loading">
+    ⏳ Cargando calendario...
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading" class="calendar-wrapper">
+    <!-- Header con controles -->
+    <div class="calendar-header">
+      <button class="btn-nav" (click)="anteriorPeriodo()">← Anterior</button>
+      <button class="btn-hoy" (click)="hoy()">Hoy</button>
+      <button class="btn-nav" (click)="siguientePeriodo()">Siguiente →</button>
+    </div>
+
+    <!-- Título y selector de vista -->
+    <div class="periodo-info">
+      <h2>{{ getTituloPeriodo() }}</h2>
+      <div class="vista-selector">
+        <button 
+          [class.activo]="vistaActual === 'dia'"
+          (click)="cambiarVista('dia')"
+          class="btn-vista">
+          📅 Día
+        </button>
+        <button 
+          [class.activo]="vistaActual === 'semana'"
+          (click)="cambiarVista('semana')"
+          class="btn-vista">
+          📊 Semana
+        </button>
+        <button 
+          [class.activo]="vistaActual === 'mes'"
+          (click)="cambiarVista('mes')"
+          class="btn-vista">
+          📆 Mes
+        </button>
+      </div>
+    </div>
+
+    <!-- VISTA DE DÍA -->
+    <div *ngIf="vistaActual === 'dia'" class="vista-dia">
+      <div class="day-content">
+        <div class="day-actions">
+          <button class="btn btn-primary" (click)="crearFaenaDelDia()">
+            ✏️ Crear Nueva Faena
+          </button>
+        </div>
+
+        <div *ngIf="getPedidosDelDia().length === 0" class="sin-pedidos">
+          <p>📭 Sin faenas para este día</p>
+        </div>
+
+        <div *ngIf="getPedidosDelDia().length > 0" class="pedidos-list">
+          <div class="resumen-dia">
+            <span>Total pendiente: <strong>${{ getTotalPendiente(getPedidosDelDia()) | money }}</strong></span>
+            <span>Faenas: <strong>{{ getPedidosDelDia().length }}</strong></span>
+          </div>
+
+          <div *ngFor="let pedido of getPedidosDelDia()" class="pedido-item">
+            <div class="pedido-header">
+              <h4>{{ pedido.nombre || pedido.clienteNombre || 'Sin cliente' }}</h4>
+              <span class="status" [ngClass]="getStatusColor(pedido.estado)">{{ pedido.estado }}</span>
+            </div>
+            <p class="descripcion">{{ pedido.descripcion || '-' }}</p>
+            <div class="pedido-footer">
+              <span>📍 {{ pedido.direccion || '-' }}</span>
+              <span>📞 {{ pedido.telefono || '-' }}</span>
+            </div>
+            <div class="pedido-footer">
+              <span>📅 {{ pedido.fechaEntrega ? (pedido.fechaEntrega | date:'dd/MM/yyyy') : '-' }}</span>
+              <span>🕒 {{ pedido.hora || '-' }}</span>
+            </div>
+            <div class="pedido-footer">
+              <span>💵 {{ pedido.presupuesto || 0 | money }}€</span>
+              <button class="btn btn-secondary" [routerLink]="['/pedidos', pedido.id]">Editar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISTA DE SEMANA -->
+    <div *ngIf="vistaActual === 'semana'" class="vista-semana">
+      <div class="week-grid">
+        <div 
+          *ngFor="let fecha of getSemanaDias()" 
+          class="week-day" 
+          [class.hoy]="esFechaHoy(fecha)"
+          (click)="irAlDiaDesdeDate(fecha)">
+          <div class="week-day-header">
+            <div class="day-name">{{ formatearFecha(fecha) }}</div>
+            <div class="day-count" *ngIf="getPedidosPorFechaObj(fecha).length > 0">
+              {{ getPedidosPorFechaObj(fecha).length }}
+            </div>
+          </div>
+          <div class="week-day-pedidos">
+            <div *ngFor="let pedido of getPedidosPorFechaObj(fecha)" class="pedido-mini" [ngClass]="getStatusColor(pedido.estado)">
+              <span class="mini-cliente">{{ pedido.clienteNombre }}</span>
+              <span class="mini-precio">{{ pedido.precio | money }}€</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISTA DE MES -->
+    <div *ngIf="vistaActual === 'mes'" class="vista-mes">
+      <div class="month-calendar">
+        <!-- Encabezado de días de la semana -->
+        <div class="weekdays-header">
+          <div *ngFor="let dia of diasSemana" class="weekday-name">{{ dia }}</div>
+        </div>
+
+        <!-- Días del mes -->
+        <div class="days-grid">
+          <div 
+            *ngFor="let dia of getDiasDelMes()" 
+            class="day-cell"
+            [class.empty]="dia === null"
+            [class.hoy]="esDiaHoy(dia)"
+            [class.con-pedidos]="getPedidosPorFecha(dia).length > 0"
+            (click)="irAlDia(dia)">
+            
+            <div *ngIf="dia !== null" class="day-content">
+              <div class="day-number">{{ dia }}</div>
+              
+              <div class="day-pedidos">
+                <div *ngFor="let pedido of getPedidosPorFecha(dia) | slice:0:2" 
+                     class="pedido-dot"
+                     [ngClass]="getStatusColor(pedido.estado)"
+                     [title]="pedido.clienteNombre">
+                </div>
+                <span *ngIf="getPedidosPorFecha(dia).length > 2" class="mas-pedidos">
+                  +{{ getPedidosPorFecha(dia).length - 2 }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

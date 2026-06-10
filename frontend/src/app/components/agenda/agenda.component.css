@@ -1,0 +1,312 @@
+.agenda {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.agenda h2 {
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.loading,
+.error,
+.empty,
+.sin-entregas {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.error {
+  background-color: #ffebee;
+  color: #c62828;
+  border-radius: 5px;
+}
+
+.empty,
+.sin-entregas {
+  background-color: #f5f5f5;
+}
+
+.agenda-container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2rem;
+  min-height: 500px;
+}
+
+/* Lista de fechas */
+.fechas-list h3 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1rem;
+}
+
+.fechas-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.fechas-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.fechas-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.fechas-scroll::-webkit-scrollbar-thumb {
+  background: #F6F09F;
+  border-radius: 3px;
+}
+
+.fecha-btn {
+  padding: 0.75rem;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.fecha-btn:hover {
+  border-color: #F6F09F;
+  background-color: #fffef0;
+}
+
+.fecha-btn.activa {
+  border-color: #F6F09F;
+  background: #F6F09F;
+  color: #333;
+}
+
+.fecha-btn.hoy:not(.activa) {
+  border-color: #BED4CB;
+  background-color: #f0f7f4;
+}
+
+.fecha-dia {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.fecha-mes {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.fecha-contador {
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+  font-weight: 600;
+}
+
+/* Detalles de la fecha */
+.detalles-fecha {
+  border-left: 2px solid #eee;
+  padding-left: 2rem;
+}
+
+.fecha-header {
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  background: #f5f5f5;
+}
+
+.fecha-header h2 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  text-transform: capitalize;
+}
+
+.fecha-header.hoy {
+  background: #BED4CB;
+  color: #333;
+}
+
+.fecha-header.hoy h2 {
+  color: #333;
+}
+
+.fecha-header.proximo {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: white;
+}
+
+.fecha-header.proximo h2 {
+  color: white;
+}
+
+.fecha-header.urgente {
+  background: #B35656;
+  color: white;
+}
+
+.fecha-header.urgente h2 {
+  color: white;
+}
+
+.info-rapida {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: 500;
+}
+
+.dias-restantes {
+  display: block;
+}
+
+.total {
+  display: block;
+}
+
+/* Pedidos */
+.pedidos-agenda {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pedido-card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.pedido-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #F6F09F;
+}
+
+.pedido-header {
+  background: #f9f9f9;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pedido-header h4 {
+  margin: 0;
+  color: #333;
+}
+
+.status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.status-pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-esperando {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-hecho {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+}
+
+.status-cobrado {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-volver_contactar {
+  background-color: #9e9e9e;
+  color: #fff;
+}
+
+.status-cancelado {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.pedido-body {
+  padding: 1rem;
+}
+
+.descripcion {
+  margin: 0 0 0.75rem 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.detalles {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.pedido-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-ver {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  background-color: #87B6BC;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.btn-ver:hover {
+  background-color: #6a95a3;
+}
+
+.cantidad,
+.precio {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .agenda-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .detalles-fecha {
+    border-left: none;
+    border-top: 2px solid #eee;
+    padding-left: 0;
+    padding-top: 2rem;
+  }
+
+  .fechas-scroll {
+    display: grid;
+    grid-template-columns: 1fr;
+    max-height: none;
+    gap: 0.5rem;
+  }
+
+  .info-rapida {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,580 @@
+.home-calendar {
+  width: 100%;
+  height: 100%;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+}
+
+.error {
+  background-color: #ffebee;
+  color: #c62828;
+  border-radius: 5px;
+}
+
+.calendar-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* Header de controles */
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #F6F09F;
+  flex-wrap: wrap;
+}
+
+.btn-nav, .btn-hoy {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-nav {
+  background: rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.btn-nav:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.btn-hoy {
+  background: white;
+  color: #87B6BC;
+  font-weight: 600;
+}
+
+.btn-hoy:hover {
+  background: #f0f0f0;
+}
+
+/* Período e info */
+.periodo-info {
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-bottom: 2px solid #eee;
+}
+
+.periodo-info h2 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.vista-selector {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-vista {
+  padding: 0.6rem 1.2rem;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.btn-vista:hover {
+  border-color: #F6F09F;
+}
+
+.btn-vista.activo {
+  background: #F6F09F;
+  color: #333;
+  border-color: #F6F09F;
+}
+
+/* Contenedor principal de vistas */
+.vista-dia, .vista-semana, .vista-mes {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+/* VISTA DE DÍA */
+.vista-dia .day-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.day-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background-color: #F6F09F;
+  color: #333;
+}
+
+.btn-primary:hover {
+  background-color: #e8e18c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(246, 240, 159, 0.3);
+}
+
+.sin-pedidos {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #999;
+  font-size: 1.1rem;
+}
+
+.resumen-dia {
+  display: flex;
+  justify-content: space-around;
+  background: #fffef0;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #F6F09F;
+}
+
+.resumen-dia span {
+  font-size: 0.95rem;
+}
+
+.pedidos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pedido-item {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1rem;
+  background: white;
+  transition: all 0.3s;
+}
+
+.pedido-item:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-color: #F6F09F;
+}
+
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.pedido-header h4 {
+  margin: 0;
+  color: #333;
+}
+
+.status {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.status-pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-esperando {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-hecho {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+}
+
+.status-cobrado {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-volver_contactar {
+  background-color: #9e9e9e;
+  color: #fff;
+}
+
+.status-cancelado {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.descripcion {
+  margin: 0.5rem 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.pedido-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* VISTA DE SEMANA */
+.vista-semana {
+  padding: 1rem 0.5rem;
+}
+
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
+}
+
+.week-day {
+  background: white;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  padding: 0.75rem;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.week-day.hoy {
+  border-color: #F6F09F;
+  background: #fffef0;
+  box-shadow: 0 2px 8px rgba(246, 240, 159, 0.2);
+}
+
+.week-day:not(.hoy):hover {
+  border-color: #999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.week-day-header {
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #eee;
+  margin-bottom: 0.5rem;
+}
+
+.day-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.day-count {
+  background: #F6F09F;
+  color: #333;
+  border-radius: 12px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-top: 0.25rem;
+}
+
+.week-day-pedidos {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  overflow-y: auto;
+}
+
+.pedido-mini {
+  padding: 0.4rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.pedido-mini.status-pendiente {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.pedido-mini.status-esperando {
+  background-color: #ff9800;
+  color: #000;
+}
+
+.pedido-mini.status-hecho {
+  background-color: #87B6BC;
+}
+
+.pedido-mini.status-cobrado {
+  background-color: #BED4CB;
+  color: #333;
+}
+
+.pedido-mini.status-volver_contactar {
+  background-color: #9e9e9e;
+  color: white;
+}
+
+.pedido-mini.status-cancelado {
+  background-color: #B35656;
+  color: white;
+}
+
+.mini-cliente {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mini-precio {
+  font-weight: 600;
+}
+
+/* VISTA DE MES */
+.vista-mes {
+  padding: 1rem 0.5rem;
+}
+
+.month-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  max-width: 100%;
+}
+
+.weekdays-header {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.weekday-name {
+  text-align: center;
+  font-weight: 600;
+  color: #87B6BC;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.days-grid {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.day-cell {
+  aspect-ratio: 1;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  padding: 0.5rem;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-height: 80px;
+}
+
+.day-cell:not(.empty):not(.hoy):hover {
+  border-color: #999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.day-cell.empty {
+  background: transparent;
+  border: none;
+  cursor: default;
+}
+
+.day-cell.hoy {
+  border-color: #F6F09F;
+  background: #F6F09F;
+  color: #333;
+}
+
+.day-cell.con-pedidos:not(.empty):not(.hoy) {
+  border-color: #ff9800;
+  background: #fff9e6;
+}
+
+.day-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.day-number {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.day-pedidos {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  align-content: flex-start;
+  overflow: hidden;
+}
+
+.pedido-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.pedido-dot.status-pendiente {
+  background-color: #ffc107;
+}
+
+.pedido-dot.status-esperando {
+  background-color: #ff9800;
+}
+
+.pedido-dot.status-hecho {
+  background-color: #87B6BC;
+}
+
+.pedido-dot.status-cobrado {
+  background-color: #BED4CB;
+}
+
+.pedido-dot.status-volver_contactar {
+  background-color: #9e9e9e;
+}
+
+.pedido-dot.status-cancelado {
+  background-color: #B35656;
+}
+
+.mas-pedidos {
+  font-size: 0.7rem;
+  color: #666;
+  align-self: flex-end;
+}
+
+/* Responsivo para móvil */
+@media (max-width: 768px) {
+  .vista-dia, .vista-semana, .vista-mes {
+    padding: 1rem 0.5rem;
+  }
+
+  .period-info h2 {
+    font-size: 1.3rem;
+  }
+
+  .calendar-header {
+    gap: 0.5rem;
+  }
+
+  .btn-nav, .btn-hoy {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .vista-selector {
+    gap: 0.3rem;
+  }
+
+  .btn-vista {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .week-grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.3rem;
+  }
+
+  .week-day {
+    min-height: 120px;
+    padding: 0.5rem;
+  }
+
+  .day-cell {
+    min-height: 60px;
+    padding: 0.3rem;
+    font-size: 0.9rem;
+  }
+
+  .day-number {
+    font-size: 0.95rem;
+  }
+
+  .resumen-dia {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .period-info {
+    padding: 1rem 0.5rem;
+  }
+
+  .period-info h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .vista-selector {
+    width: 100%;
+  }
+
+  .btn-vista {
+    flex: 1;
+    min-width: 60px;
+  }
+
+  .day-cell {
+    min-height: 50px;
+    padding: 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  .day-number {
+    font-size: 0.85rem;
+  }
+
+  .week-grid {
+    grid-template-columns: 1fr;
+  }
+}

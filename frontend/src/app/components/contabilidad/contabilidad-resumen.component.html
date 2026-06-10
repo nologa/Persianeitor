@@ -1,0 +1,32 @@
+<div class="contabilidad-container">
+  <div class="header-section">
+    <h2>📊 Resumen de Contabilidad</h2>
+    <div class="filters">
+      <label for="year">Año:</label>
+      <select id="year" [(ngModel)]="selectedYear" (change)="onYearChange()">
+        <option *ngFor="let year of availableYears" [value]="year">{{ year }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading">⏳ Cargando datos...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && !error" class="table-wrapper">
+    <table class="resumen-table">
+      <thead>
+        <tr>
+          <th>Mes</th>
+          <th class="text-right">Total Cobrado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of resumenMensual">
+          <td class="mes-label">{{ formatMes(item.mes) }}</td>
+          <td class="text-right highlight">{{ item.totalIngresos | money }}€</td>
+        </tr>
+        <tr *ngIf="resumenMensual.length === 0"><td colspan="2" class="no-data">No hay faenas cobradas en este año.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>

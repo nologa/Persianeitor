@@ -1,0 +1,180 @@
+.notas-dashboard {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 2rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: #F6F09F;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-primary:hover {
+  background-color: #e8e18c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.loading, .error, .empty {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.error {
+  background-color: #ffebee;
+  color: #c62828;
+  border-radius: 10px;
+}
+
+.notas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  perspective: 1000px;
+}
+
+.nota-card {
+  background: #F6F09F;
+  padding: 1.5rem;
+  border-radius: 0;
+  box-shadow: 
+    0 1px 3px rgba(0,0,0,0.12),
+    0 1px 2px rgba(0,0,0,0.24);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  transform: rotate(-1deg);
+  user-select: none;
+}
+
+.nota-card[draggable="true"] {
+  cursor: grab;
+}
+
+.nota-card[draggable="true"]:active {
+  cursor: grabbing;
+}
+
+.nota-card:nth-child(even) {
+  transform: rotate(1deg);
+}
+
+.nota-card:hover {
+  box-shadow: 
+    0 14px 28px rgba(0,0,0,0.25),
+    0 10px 10px rgba(0,0,0,0.22);
+  transform: rotate(0deg) scale(1.05);
+  z-index: 10;
+}
+
+
+.btn-delete {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  color: #333;
+  border: none;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.3;
+  transition: all 0.2s;
+}
+.btn-delete:hover {
+  color: #B35656;
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.nota-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 600;
+  word-wrap: break-word;
+  font-family: 'Patrick Hand', cursive;
+}
+
+.nota-contenido {
+  flex: 1;
+  color: #444;
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+  -webkit-box-orient: vertical;
+  line-height: 1.5;
+  font-family: 'Indie Flower', cursive;
+  font-size: 1.05rem;
+}
+
+.nota-fecha {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: #666;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .notas-dashboard {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .notas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nota-card {
+    transform: rotate(0deg);
+  }
+
+  .nota-card:nth-child(even) {
+    transform: rotate(0deg);
+  }
+}

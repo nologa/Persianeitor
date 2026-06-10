@@ -1,0 +1,45 @@
+<div class="clientes-list">
+  <div class="header">
+    <h2>Clientes</h2>
+    <button class="btn btn-primary" (click)="nuevoCliente()">+ Nuevo Cliente</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Cargando clientes...
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && clientes.length === 0" class="empty">
+    <p>No hay clientes. ¡Crea uno para empezar!</p>
+  </div>
+
+  <div *ngIf="!loading && clientes.length > 0" class="table-container">
+    <table class="clientes-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Ciudad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>{{ cliente.nombre }}</td>
+          <td>{{ cliente.email || '-' }}</td>
+          <td>{{ cliente.telefono || '-' }}</td>
+          <td>{{ cliente.ciudad || '-' }}</td>
+          <td class="actions">
+            <button class="btn btn-sm btn-faena" (click)="crearFaena(cliente.id)" title="Crear Faena">➕ Faena</button>
+            <button class="btn btn-sm btn-success" (click)="editarCliente(cliente.id)">Editar</button>
+            <button class="btn btn-sm btn-danger" (click)="eliminarCliente(cliente.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

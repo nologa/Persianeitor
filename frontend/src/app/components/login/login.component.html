@@ -1,0 +1,33 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Persianeitor</h1>
+      <p>Inicia sesión para consultar tu agenda.</p>
+    </div>
+
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submit()">
+      <label>
+        <span>Usuario</span>
+        <input type="text" formControlName="username" placeholder="admin" autocomplete="username" />
+      </label>
+
+      <label>
+        <span>Contraseña</span>
+        <input type="password" formControlName="password" placeholder="Introduce tu contraseña" autocomplete="current-password" />
+      </label>
+
+      <div class="error" *ngIf="error">{{ error }}</div>
+
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Entrando...' : 'Entrar' }}
+      </button>
+    </form>
+
+    <div class="login-extras">
+      <a routerLink="/forgot">¿Olvidaste la contraseña?</a>
+    </div>
+
+    <div class="login-footer">
+l    </div>
+  </div>
+</div>

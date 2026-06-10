@@ -1,0 +1,4 @@
+node_modules/
+persianeitor.db
+.env
+.DS_Store

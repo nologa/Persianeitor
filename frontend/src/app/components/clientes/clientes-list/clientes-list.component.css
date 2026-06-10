@@ -1,0 +1,153 @@
+.clientes-list {
+  --color-primary: #F6F09F;
+  --color-primary-hover: #e8e18c;
+  --color-success: #BED4CB; /* Coherente con btn-edit de pedidos-list */
+  --color-success-hover: #adc2ba; /* Coherente con btn-edit de pedidos-list */
+  --color-danger: #B35656; /* Coherente con btn-delete de pedidos-list */
+  --color-danger-hover: #9d4444; /* Coherente con btn-delete de pedidos-list */
+  --color-faena: #87B6BC;
+  --color-faena-hover: #6fa5ab;
+  --color-secondary: #f0f0f0;
+  --color-secondary-hover: #e0e0e0;
+}
+
+.clientes-list {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header h2 {
+  margin: 0;
+  color: #333;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #333;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-secondary-hover);
+}
+
+.btn-success {
+  background-color: var(--color-success);
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: var(--color-success-hover);
+}
+
+.btn-faena {
+  background-color: var(--color-faena);
+  color: white;
+}
+
+.btn-faena:hover {
+  background-color: var(--color-faena-hover);
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: var(--color-danger-hover);
+}
+
+.logout-btn {
+  background-color: var(--color-danger);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.loading, .error, .empty {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.error {
+  background-color: #ffebee;
+  color: #c62828;
+  border-radius: 5px;
+}
+
+.empty {
+  background-color: #f5f5f5;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.clientes-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.clientes-table thead {
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #ddd;
+}
+
+.clientes-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+}
+
+.clientes-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.clientes-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}

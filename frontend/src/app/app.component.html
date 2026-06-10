@@ -1,0 +1,37 @@
+<ng-container *ngIf="showNavbar; else authView">
+  <div class="container">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <h1><a routerLink="/calendario">{{ title }}</a></h1>
+      </div>
+      <button class="hamburger" (click)="toggleMenu()" [class.open]="menuOpen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="navbar-menu" [class.open]="menuOpen">
+        <li><a routerLink="/calendario" routerLinkActive="active" (click)="closeMenu()">Calendario</a></li>
+        <li><a routerLink="/pedidos" routerLinkActive="active" (click)="closeMenu()">Faenas</a></li>
+        <li><a routerLink="/clientes" routerLinkActive="active" (click)="closeMenu()">Clientes</a></li>
+        <li><a routerLink="/fabrica" routerLinkActive="active" (click)="closeMenu()">Fábrica</a></li>
+
+        <li><a routerLink="/notas" routerLinkActive="active" (click)="closeMenu()">Notas</a></li>
+        <!-- <li><a routerLink="/contabilidad" (click)="closeMenu()">Contabilidad</a></li> -->
+        <li><button type="button" class="logout-btn" (click)="logout()">Salir</button></li>
+      </ul>
+      <div class="status" [class.online]="isOnline" [class.offline]="!isOnline">
+        {{ isOnline ? '🟢 Online' : '🔴 Offline' }}
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</ng-container>
+
+<ng-template #authView>
+  <router-outlet></router-outlet>
+</ng-template>
+
+<app-confirm-dialog></app-confirm-dialog>

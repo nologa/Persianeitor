@@ -1,0 +1,114 @@
+
+<div class="pedidos-view">
+  <div *ngIf="loading" class="loading">
+    Cargando pedido...
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && pedido" class="pedido-detail">
+    <!-- Header con título y acciones -->
+    <div class="header">
+      <div class="titulo">
+        <h1>{{ pedido.nombre || 'Sin nombre' }}</h1>
+        <span class="status" [ngClass]="getStatusColor(pedido.estado)">{{ pedido.estado }}</span>
+      </div>
+      <div class="acciones">
+        <button class="btn btn-primary" (click)="editarPedido()">✏️ Editar</button>
+        <button class="btn btn-secondary" (click)="volver()">← Volver</button>
+      </div>
+    </div>
+
+    <!-- Información del cliente -->
+    <div class="section">
+      <h2>Información del Cliente</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Nombre:</label>
+          <p>{{ pedido.nombre || '-' }}</p>
+        </div>
+        <div class="info-item">
+          <label>Teléfono:</label>
+          <p>{{ pedido.telefono || '-' }}</p>
+        </div>
+        <div class="info-item full-width">
+          <label>Dirección:</label>
+          <div class="direccion-container">
+            <p>{{ pedido.direccion || '-' }}</p>
+            <button *ngIf="pedido.direccion" class="btn-maps" (click)="abrirMaps(pedido.direccion)" title="Abrir en Google Maps">
+              📍 Ir
+            </button>
+          </div>
+        </div>
+        <div class="info-item full-width">
+          <label>Descripción:</label>
+          <p>{{ pedido.descripcion || '-' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Información de la faena -->
+    <div class="section">
+      <h2>Detalles de la Faena</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Fecha de Entrega:</label>
+          <p>{{ pedido.fechaEntrega | date:'dd/MM/yyyy' }}</p>
+        </div>
+        <div class="info-item">
+          <label>Hora:</label>
+          <p>{{ pedido.hora || '-' }}</p>
+        </div>
+        <div class="info-item">
+          <label>Presupuesto:</label>
+          <p class="presupuesto">{{ pedido.presupuesto || 0 | money }}€</p>
+        </div>
+        <div class="info-item">
+          <label>Estado:</label>
+          <p><span class="status-badge" [ngClass]="getStatusColor(pedido.estado)">{{ pedido.estado }}</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Materiales -->
+    <div class="section" *ngIf="items.length > 0">
+      <h2>Materiales</h2>
+      <div class="items-list">
+        <div *ngFor="let item of items" class="item-card">
+          <div class="item-header">
+            <strong>{{ item.tipo | titlecase }}</strong>
+            <span *ngIf="item.producto" class="producto">{{ item.producto }}</span>
+          </div>
+          <div class="item-details">
+            <span *ngIf="item.ancho">📏 Ancho: {{ item.ancho }} cm</span>
+            <span *ngIf="item.alto">📏 Alto: {{ item.alto }} cm</span>
+            <span *ngIf="item.color">🎨 Color: {{ item.color }}</span>
+            <span *ngIf="item.material">📦 Material: {{ item.material }}</span>
+            <span>📊 Cant.: {{ item.cantidad || 1 }}</span>
+          </div>
+          <div *ngIf="item.notas" class="item-notas">
+            <strong>Notas:</strong> {{ item.notas }}
+          </div>
+          <div class="item-fabrica" *ngIf="item.enPedidoFabrica">
+            ✓ En pedido de fábrica
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="items.length === 0" class="empty-message">
+      No hay materiales registrados para esta faena.
+    </div>
+
+    <!-- Metadata -->
+    <div class="section metadata">
+      <small>
+        <p>Creado: {{ pedido.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+        <p>Actualizado: {{ pedido.updatedAt | date:'dd/MM/yyyy HH:mm' }}</p>
+      </small>
+    </div>
+  </div>
+</div>
+-->

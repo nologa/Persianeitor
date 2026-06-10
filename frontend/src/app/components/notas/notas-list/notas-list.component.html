@@ -1,0 +1,38 @@
+<div class="notas-dashboard">
+  <div class="header">
+    <h2>📝 Mis Notas</h2>
+    <button class="btn btn-primary" (click)="nuevaNota()">+ Nueva nota</button>
+  </div>
+
+  <!-- Mensaje de Carga -->
+  <div *ngIf="loading" class="loading-state">
+    <p>Cargando tus notas...</p>
+  </div>
+
+  <!-- Mensaje de Error -->
+  <div *ngIf="error" class="error-state">
+    <p>{{ error }}</p>
+    <button (click)="loadNotas()">Reintentar</button>
+  </div>
+
+  <!-- Lista Vacía -->
+  <div *ngIf="!loading && !error && notas.length === 0" class="empty-state">
+    <p>Aún no tienes notas. ¡Crea la primera!</p>
+  </div>
+
+  <!-- Rejilla de Notas -->
+  <div *ngIf="!loading && notas.length > 0" class="notas-grid">
+    <div *ngFor="let nota of notas" 
+         class="nota-card" 
+         [style.background-color]="nota.color || '#fff7d1'"
+         (click)="editarNota(nota.id)">
+      <div class="nota-header">
+        <h3>{{ nota.titulo || 'Sin título' }}</h3>
+        <button class="btn-delete" (click)="eliminarNota(nota.id); $event.stopPropagation()">×</button>
+      </div>
+      <div class="nota-body">
+        <p>{{ nota.contenido }}</p>
+      </div>
+    </div>
+  </div>
+</div>

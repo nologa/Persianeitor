@@ -1,0 +1,107 @@
+<div class="pedidos-list">
+  <div class="header">
+    <h2>Pedidos</h2>
+    <div class="header-actions">
+      <button class="btn btn-toggle" (click)="toggleVista()" title="Cambiar vista">
+        {{ vistaActual === 'tabla' ? '📱 Tarjetas' : '📋 Tabla' }}
+      </button>
+      <button class="btn btn-primary" (click)="nuevoPedido()">+ Nueva Faena</button>
+    </div>
+  </div>
+
+  <div class="filters">
+    <label for="criterioOrden">Ordenar por:</label>
+    <select id="criterioOrden" [(ngModel)]="criterioOrden" class="form-control" style="width: auto; margin-right: 1rem; display: inline-block;">
+      <option value="estado">Estado (Prioridad)</option>
+      <option value="fecha">Fecha</option>
+    </select>
+
+    <label for="filtroEstado">Filtrar por estado:</label>
+    <select id="filtroEstado" [(ngModel)]="filtroEstado" class="form-control" style="width: auto; display: inline-block;">
+      <option value="">Todos</option>
+      <option value="pendiente">Pendiente</option>
+      <option value="esperando">Esperando</option>
+      <option value="volver_contactar">Contactar</option>
+      <option value="hecho">Hecho</option>
+      <option value="cobrado">Cobrado</option>
+      <option value="cancelado">Cancelado</option>
+    </select>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Cargando pedidos... 
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && pedidosFiltrados.length === 0" class="empty">
+    <p>No hay pedidos. ¡Crea uno para empezar!</p>
+  </div>
+
+  <!-- Vista de Tabla -->
+  <div *ngIf="!loading && pedidosFiltrados.length > 0 && vistaActual === 'tabla'" class="table-container vista-tabla">
+    <table class="pedidos-table">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Descripción</th>
+          <th style="text-align: right;">Precio</th>
+          <th>Estado</th>
+          <th>Fecha Entrega</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pedido of pedidosFiltrados">
+          <td>{{ pedido.nombre || 'Sin nombre' }}</td>
+          <td>{{ pedido.descripcion || '-' }}</td>
+          <td style="text-align: right;">{{ pedido.presupuesto || 0 | money }}€</td>
+          <td>
+            <span class="status" [ngClass]="getStatusClass(pedido.estado)">
+              {{ getEstadoLabel(pedido.estado) }}
+            </span>
+          </td>
+          <td>{{ pedido.fechaEntrega ? (pedido.fechaEntrega | date:'dd/MM/yyyy') : '-' }}</td>
+          <td class="actions">
+            <button class="btn btn-sm btn-view" (click)="verPedido(pedido.id)">Ver</button>
+            <button class="btn btn-sm btn-edit" (click)="editarPedido(pedido.id)">Editar</button>
+            <button class="btn btn-sm btn-delete" (click)="eliminarPedido(pedido.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Vista de Tarjetas -->
+  <div *ngIf="!loading && pedidosFiltrados.length > 0 && vistaActual === 'tarjetas'" class="cards-container vista-tarjetas">
+    <div class="card" *ngFor="let pedido of pedidosFiltrados">
+      <div class="card-header">
+        <h3>{{ pedido.nombre || 'Sin nombre' }}</h3>
+        <span class="status" [ngClass]="getStatusClass(pedido.estado)">
+          {{ getEstadoLabel(pedido.estado) }}
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="card-row">
+          <span class="label">Descripción:</span>
+          <span class="value">{{ pedido.descripcion || '-' }}</span>
+        </div>
+        <div class="card-row">
+          <span class="label">Presupuesto:</span>
+          <span class="value">{{ pedido.presupuesto || 0 | money }}€</span>
+        </div>
+        <div class="card-row">
+          <span class="label">Fecha Entrega:</span>
+          <span class="value">{{ pedido.fechaEntrega ? (pedido.fechaEntrega | date:'dd/MM/yyyy') : '-' }}</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-sm btn-view" (click)="verPedido(pedido.id)">Ver</button>
+        <button class="btn btn-sm btn-edit" (click)="editarPedido(pedido.id)">Editar</button>
+        <button class="btn btn-sm btn-delete" (click)="eliminarPedido(pedido.id)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

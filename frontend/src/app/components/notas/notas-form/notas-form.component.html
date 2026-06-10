@@ -1,0 +1,55 @@
+<div class="form-container">
+  <h2>{{ notaId ? 'Editar' : 'Nueva' }} Nota</h2>
+
+  <div *ngIf="loading" class="loading">Cargando...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="titulo">Título (opcional)</label>
+      <input
+        type="text"
+        id="titulo"
+        formControlName="titulo"
+        class="form-control"
+        placeholder="Título de la nota"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="contenido">Contenido *</label>
+      <textarea
+        id="contenido"
+        formControlName="contenido"
+        class="form-control"
+        placeholder="Escribe tu nota aquí..."
+        rows="8"
+      ></textarea>
+      <div *ngIf="form.get('contenido')?.invalid && form.get('contenido')?.touched" class="error-message">
+        El contenido es requerido
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Color</label>
+      <div class="color-picker">
+        <div *ngFor="let color of colores" 
+             class="color-option"
+             [class.selected]="form.get('color')?.value === color.valor"
+             [style.background-color]="color.valor"
+             (click)="form.patchValue({color: color.valor})"
+             [title]="color.nombre">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-secondary" (click)="volver()">
+        Cancelar
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        {{ loading ? 'Guardando...' : 'Guardar' }}
+      </button>
+    </div>
+  </form>
+</div>

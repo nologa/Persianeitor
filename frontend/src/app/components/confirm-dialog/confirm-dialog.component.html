@@ -1,0 +1,18 @@
+<div class="confirm-overlay" *ngIf="dialog$ | async as dialog">
+  <div class="confirm-modal">
+    <div class="confirm-header">
+      <h2>{{ dialog.title }}</h2>
+    </div>
+    <div class="confirm-body">
+      <p>{{ dialog.message }}</p>
+    </div>
+    <div class="confirm-actions">
+      <button class="btn btn-cancel" (click)="onCancel()">
+        {{ dialog.cancelText || 'Cancelar' }}
+      </button>
+      <button class="btn btn-confirm" (click)="onConfirm()">
+        {{ dialog.confirmText || 'Confirmar' }}
+      </button>
+    </div>
+  </div>
+</div>
