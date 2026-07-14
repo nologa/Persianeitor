@@ -48,7 +48,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.pedidoService.getPedidos().subscribe(
       (data) => {
-        this.pedidos = data.filter(p => p.fechaEntrega);
+        this.pedidos = data
+          .map((p) => ({
+            ...p,
+            fechaEntrega: this.normalizarFecha(p.fechaEntrega)
+          }))
+          .filter(p => p.fechaEntrega);
         this.loading = false;
       },
       (error) => {
@@ -57,6 +62,23 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.loading = false;
       }
     );
+  }
+
+  private normalizarFecha(fecha: any): string {
+    if (!fecha) {
+      return '';
+    }
+
+    if (typeof fecha === 'string') {
+      return fecha.length >= 10 ? fecha.slice(0, 10) : fecha;
+    }
+
+    const date = new Date(fecha);
+    if (Number.isNaN(date.getTime())) {
+      return '';
+    }
+
+    return date.toISOString().slice(0, 10);
   }
 
   cambiarVista(vista: Vista): void {
