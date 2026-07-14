@@ -67,7 +67,11 @@
             <p class="descripcion">{{ pedido.descripcion || '-' }}</p>
             <div class="pedido-footer">
               <span>📍 {{ pedido.direccion || '-' }}</span>
-              <span>📞 {{ pedido.telefono || '-' }}</span>
+              <span>
+                📞
+                <a *ngIf="pedido.telefono" [href]="'tel:' + pedido.telefono">{{ pedido.telefono }}</a>
+                <ng-container *ngIf="!pedido.telefono">-</ng-container>
+              </span>
             </div>
             <div class="pedido-footer">
               <span>📅 {{ pedido.fechaEntrega ? (pedido.fechaEntrega | date:'dd/MM/yyyy') : '-' }}</span>
