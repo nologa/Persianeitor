@@ -4,7 +4,9 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  padding-bottom: 6rem;
   background: #f6f09f;
+  position: relative;
 }
 
 .login-card {
@@ -100,9 +102,16 @@
 }
 
 .login-footer {
-  margin-top: 1rem;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.75rem 1rem 0.9rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-top: 1px solid #d8e0e3;
   color: #5d6a73;
   text-align: center;
+  z-index: 20;
 }
 
 .legal-links {
@@ -110,7 +119,7 @@
   justify-content: center;
   gap: 0.75rem;
   flex-wrap: wrap;
-  margin-top: 0.6rem;
+  margin-top: 0;
 }
 
 .legal-link {
@@ -176,7 +185,7 @@
 }
 
 .copyright {
-  margin: 0.9rem 0 0;
+  margin: 0.45rem 0 0;
   font-size: 0.82rem;
   color: #7a8790;
 }
