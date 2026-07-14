@@ -236,12 +236,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  getTotalPendiente(pedidos: any[]): number {
-    return pedidos
-      .filter(p => p.estado === 'pendiente')
-      .reduce((sum, p) => sum + (p.precio || 0), 0);
-  }
-
   getStatusColor(estado: string): string {
     switch (estado) {
       case 'pendiente':
