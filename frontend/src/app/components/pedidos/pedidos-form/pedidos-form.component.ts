@@ -235,6 +235,11 @@ export class PedidosFormComponent implements OnInit {
       this.pedidoService.createPedido(formData).subscribe(
         (created) => {
           const newId = created?.id;
+          if (!newId) {
+            this.error = 'No se pudo crear el pedido en el servidor';
+            this.loading = false;
+            return;
+          }
           if (newId && this.pendingItems.length > 0) {
             const creates = this.pendingItems.map(item =>
               this.pedidoItemsService.createItem({

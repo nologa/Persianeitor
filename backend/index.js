@@ -416,6 +416,16 @@ app.post('/api/pedidos', (req, res) => {
   let { clienteId, nombre, direccion, telefono, descripcion, cantidad, precio, presupuesto, estado, fechaEntrega, hora } = req.body;
   // Convertir clienteId vacío a null
   clienteId = clienteId && clienteId !== '' ? clienteId : null;
+  cantidad = cantidad === '' || cantidad === undefined || cantidad === null ? null : Number(cantidad);
+  precio = precio === '' || precio === undefined || precio === null ? null : Number(precio);
+  presupuesto = presupuesto === '' || presupuesto === undefined || presupuesto === null ? null : Number(presupuesto);
+  fechaEntrega = fechaEntrega && fechaEntrega !== '' ? fechaEntrega : null;
+  hora = hora && hora !== '' ? hora : null;
+
+  if ((cantidad !== null && Number.isNaN(cantidad)) || (precio !== null && Number.isNaN(precio)) || (presupuesto !== null && Number.isNaN(presupuesto))) {
+    return res.status(400).json({ error: 'Cantidad, precio y presupuesto deben ser números válidos' });
+  }
+
   client.query(
     `INSERT INTO pedidos ("clienteId", nombre, direccion, telefono, descripcion, cantidad, precio, presupuesto, estado, "fechaEntrega", hora)
      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`,
@@ -429,6 +439,16 @@ app.put('/api/pedidos/:id', (req, res) => {
   let { clienteId, nombre, direccion, telefono, descripcion, cantidad, precio, presupuesto, estado, fechaEntrega, hora } = req.body;
   // Convertir clienteId vacío a null
   clienteId = clienteId && clienteId !== '' ? clienteId : null;
+  cantidad = cantidad === '' || cantidad === undefined || cantidad === null ? null : Number(cantidad);
+  precio = precio === '' || precio === undefined || precio === null ? null : Number(precio);
+  presupuesto = presupuesto === '' || presupuesto === undefined || presupuesto === null ? null : Number(presupuesto);
+  fechaEntrega = fechaEntrega && fechaEntrega !== '' ? fechaEntrega : null;
+  hora = hora && hora !== '' ? hora : null;
+
+  if ((cantidad !== null && Number.isNaN(cantidad)) || (precio !== null && Number.isNaN(precio)) || (presupuesto !== null && Number.isNaN(presupuesto))) {
+    return res.status(400).json({ error: 'Cantidad, precio y presupuesto deben ser números válidos' });
+  }
+
   client.query(
     `UPDATE pedidos SET "clienteId" = $1, nombre = $2, direccion = $3, telefono = $4, descripcion = $5, cantidad = $6, precio = $7, presupuesto = $8, estado = $9, "fechaEntrega" = $10, hora = $11, "updatedAt" = CURRENT_TIMESTAMP
      WHERE id = $12`,

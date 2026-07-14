@@ -19,8 +19,6 @@
         <!-- <li><a routerLink="/contabilidad" (click)="closeMenu()">Contabilidad</a></li> -->
         <li><button type="button" class="logout-btn" (click)="logout()">Salir</button></li>
       </ul>
-      <div class="status" [class.online]="isOnline" [class.offline]="!isOnline">
-        {{ isOnline ? '🟢 Online' : '🔴 Offline' }}
       </div>
     </nav>
 
