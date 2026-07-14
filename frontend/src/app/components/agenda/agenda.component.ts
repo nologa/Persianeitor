@@ -28,10 +28,17 @@ export class AgendaComponent implements OnInit {
     this.loading = true;
     this.pedidoService.getPedidos().subscribe(
       (data) => {
-        this.pedidos = data.filter(p => p.fechaEntrega);
+        this.pedidos = data
+          .map((p) => ({
+            ...p,
+            fechaEntrega: this.normalizarFecha(p.fechaEntrega)
+          }))
+          .filter(p => p.fechaEntrega);
         this.loading = false;
-        // Seleccionar hoy por defecto si hay entregas
-        this.fechaSeleccionada = this.hoy;
+        // Seleccionar hoy si existe, si no la próxima fecha disponible
+        this.fechaSeleccionada = this.fechasUnicas.includes(this.hoy)
+          ? this.hoy
+          : (this.fechasUnicas[0] || '');
       },
       (error) => {
         console.error('Error cargando pedidos:', error);
@@ -39,6 +46,23 @@ export class AgendaComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+  private normalizarFecha(fecha: any): string {
+    if (!fecha) {
+      return '';
+    }
+
+    if (typeof fecha === 'string') {
+      return fecha.length >= 10 ? fecha.slice(0, 10) : fecha;
+    }
+
+    const date = new Date(fecha);
+    if (Number.isNaN(date.getTime())) {
+      return '';
+    }
+
+    return date.toISOString().slice(0, 10);
   }
 
   get fechasUnicas(): string[] {

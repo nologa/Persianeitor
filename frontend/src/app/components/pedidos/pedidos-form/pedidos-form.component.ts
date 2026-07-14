@@ -77,11 +77,11 @@ export class PedidosFormComponent implements OnInit {
       clienteId: [''],
       nombre: ['', Validators.required],
       direccion: ['', Validators.required],
-      telefono: ['', Validators.required],
+      telefono: [''],
       descripcion: ['', Validators.required],
       presupuesto: [''],
       estado: ['pendiente', Validators.required],
-      fechaEntrega: [''],
+      fechaEntrega: ['', Validators.required],
       hora: ['']
     });
   }
