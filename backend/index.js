@@ -160,7 +160,7 @@ function createTables() {
         operacion TEXT,
         "registroId" INTEGER,
         datos TEXT,
-        sincronizado BOOLEAN DEFAULT 0,
+        sincronizado BOOLEAN DEFAULT FALSE,
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
