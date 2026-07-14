@@ -176,6 +176,16 @@ function createTables() {
         "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
+      await client.query(`
+        DO $$ BEGIN
+          ALTER TABLE notas ADD COLUMN "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+        EXCEPTION WHEN duplicate_column THEN END; $$;
+      `);
+      await client.query(`
+        DO $$ BEGIN
+          ALTER TABLE notas ADD COLUMN "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+        EXCEPTION WHEN duplicate_column THEN END; $$;
+      `);
     } catch (err) {
       console.error('Error creando tablas:', err.message);
     }
