@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
-import { isDevMode } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, from, of, lastValueFrom, ReplaySubject } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { IndexedDbService } from './indexed-db.service';
+import { environment } from './environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SyncService {
-  // En desarrollo usa localhost, en producción usa la URL de Render que configuraremos
-  private apiUrl = isDevMode() 
-    ? 'http://localhost:3001/api' 
-    : 'https://tu-backend-en-render.onrender.com/api';
+  private apiUrl = environment.apiUrl;
   private isOnline = navigator.onLine;
 
   private syncComplete = new ReplaySubject<void>(1);

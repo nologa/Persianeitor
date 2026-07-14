@@ -4,12 +4,13 @@ import { Observable, from, Subject } from 'rxjs';
 import { switchMap, catchError, tap } from 'rxjs/operators';
 import { IndexedDbService } from './indexed-db.service';
 import { SyncService } from './sync.service';
+import { environment } from './environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PedidoService {
-  private apiUrl = 'http://localhost:3001/api/pedidos';
+  private apiUrl = `${environment.apiUrl}/pedidos`;
   private pedidosChanged = new Subject<void>();
   pedidosChanged$ = this.pedidosChanged.asObservable();
 

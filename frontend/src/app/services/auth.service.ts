@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { environment } from './environment';
 
 export interface AuthUser {
   id: number;
@@ -14,7 +15,7 @@ export interface AuthUser {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3001/api/auth';
+  private apiUrl = `${environment.apiUrl}/auth`;
   private storageKey = 'persianeitor_user';
   private currentUserSubject: BehaviorSubject<AuthUser | null>;
   currentUser$: Observable<AuthUser | null>;

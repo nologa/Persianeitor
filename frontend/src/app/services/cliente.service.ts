@@ -5,12 +5,13 @@ import { switchMap, catchError } from 'rxjs/operators';
 import { IndexedDbService } from './indexed-db.service';
 import { SyncService } from './sync.service';
 import { of } from 'rxjs';
+import { environment } from './environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
-  private apiUrl = 'http://localhost:3001/api/clientes';
+  private apiUrl = `${environment.apiUrl}/clientes`;
 
   constructor(
     private http: HttpClient,

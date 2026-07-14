@@ -4,12 +4,13 @@ import { Observable, from, Subject, of } from 'rxjs';
 import { catchError, switchMap, map } from 'rxjs/operators';
 import { IndexedDbService } from './indexed-db.service';
 import { SyncService } from './sync.service';
+import { environment } from './environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotasService {
-  private apiUrl = 'http://localhost:3001/api/notas';
+  private apiUrl = `${environment.apiUrl}/notas`;
   private notasChanged = new Subject<void>();
   notasChanged$ = this.notasChanged.asObservable();
 
