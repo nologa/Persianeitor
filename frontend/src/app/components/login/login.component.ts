@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   error = '';
   returnUrl = '/calendario';
+  activeLegalModal: 'privacidad' | 'terminos' | null = null;
 
   loginForm = this.formBuilder.group({
     username: ['', Validators.required],
@@ -61,5 +62,13 @@ export class LoginComponent implements OnInit {
         this.error = error?.error?.error || 'No se pudo iniciar sesión.';
       }
     });
+  }
+
+  openLegalModal(type: 'privacidad' | 'terminos'): void {
+    this.activeLegalModal = type;
+  }
+
+  closeLegalModal(): void {
+    this.activeLegalModal = null;
   }
 }

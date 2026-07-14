@@ -28,6 +28,44 @@
     </div>
 
     <div class="login-footer">
-l    </div>
+      <div class="legal-links">
+        <button type="button" class="legal-link" (click)="openLegalModal('privacidad')">Privacidad de tus datos</button>
+        <button type="button" class="legal-link" (click)="openLegalModal('terminos')">Términos y condiciones</button>
+      </div>
+
+      <p class="copyright">© Noelia López</p>
+    </div>
+  </div>
+</div>
+
+<div class="legal-modal-backdrop" *ngIf="activeLegalModal" (click)="closeLegalModal()">
+  <div class="legal-modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true">
+    <div class="legal-modal-header">
+      <h3 *ngIf="activeLegalModal === 'privacidad'">Privacidad de tus datos</h3>
+      <h3 *ngIf="activeLegalModal === 'terminos'">Términos y condiciones</h3>
+      <button type="button" class="close-modal" (click)="closeLegalModal()">✕</button>
+    </div>
+
+    <div class="legal-modal-body" *ngIf="activeLegalModal === 'privacidad'">
+      <p>
+        Esta aplicación es de uso interno y está alojada en internet. Tus datos contables
+        se almacenan de forma segura y no se comparten con terceros.
+      </p>
+      <p><strong>Seguridad</strong></p>
+      <p>
+        Utilizamos autenticación por token para proteger tu información.
+        Se recomienda cambiar la contraseña regularmente.
+      </p>
+      <p><strong>Contacto</strong></p>
+      <p>Para consultas sobre privacidad, contacta directamente.</p>
+    </div>
+
+    <div class="legal-modal-body" *ngIf="activeLegalModal === 'terminos'">
+      <p>
+        Esta aplicación está destinada a uso interno profesional. Al iniciar sesión,
+        aceptas usarla de forma responsable, mantener la confidencialidad de tu acceso
+        y no compartir información sensible con personas no autorizadas.
+      </p>
+    </div>
   </div>
 </div>
